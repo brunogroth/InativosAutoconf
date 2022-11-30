@@ -1,8 +1,6 @@
 @extends('template.template')
 @section('title', 'Sites Inativos')
-@extends('template.nav')
 @section('content')
-    <h2 class="text-primary my-4">Inativos Autoconf</h2>
     <div>
         <table class="table">
             <tr class="thead-primary table-primary">
@@ -27,7 +25,7 @@
                 <td>13/12/2022</td>
             </tr>
         </table>
-        <form class="form-inline my-2 my-lg-0 text-left">
+        <form class="form-inline my-2 my-lg-0 -right d-flex flex-row-reverse mr-5">
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Criar novo</button>
         </form>
     </div>

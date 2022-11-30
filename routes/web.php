@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\frontend\SiteController as FrontSiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('list');
-});
+Route::get('/', [FrontSiteController::class, 'index'])->name('list');
+
+
+Route::get('/create', [FrontSiteController::class, 'create'])->name('create');
