@@ -11,23 +11,25 @@
                 <th scope="col">Data Final</th>
             </tr>
             <tr>
-                <td scope="row">Sample Motors - #123</td>
+                <th scope="row">Sample Motors - #123</td>
                 <td>https://samplemotors.com</td>
                 <td>Date.now</td>
                 <td>15d</td>
                 <td>13/12/2022</td>
             </tr>
             <tr>
-                <td scope="row">Other Motors - #434</td>
+                <th scope="row">Other Motors - #434</td>
                 <td>https://othermotors.com</td>
                 <td>Date.now</td>
                 <td>15d</td>
                 <td>13/12/2022</td>
             </tr>
         </table>
-        <form class="form-inline my-2 my-lg-0 -right d-flex flex-row-reverse mr-5">
+        {{-- <form class="form-inline my-2 my-lg-0 -right d-flex flex-row-reverse mr-5">
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Criar novo</button>
-        </form>
-    </div>
+        </form> --}}
+        <div class=" my-2 my-lg-0 d-flex flex-row-reverse mr-5">
+            <a href='{{ Route('create') }}' class="btn btn-primary my-2 my-sm-0">Criar novo</a>
+        </div>
     </div>
 @endsection

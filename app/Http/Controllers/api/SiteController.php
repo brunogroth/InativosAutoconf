@@ -19,16 +19,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,6 +27,8 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         Site::create($request->all());
+
+        return response('Created', 201);
     }
 
     /**
@@ -48,17 +40,6 @@ class SiteController extends Controller
     public function show($id)
     {
         return Site::findOrFail($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -85,6 +66,5 @@ class SiteController extends Controller
         $site = Site::findOrFail($id);
         $site->delete();
 
-        
     }
 }

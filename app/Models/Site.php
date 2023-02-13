@@ -9,12 +9,12 @@ class Site extends Model
 {
     use HasFactory;
 
+    protected $table = "sites_inativos";
+
     protected $fillable = [
-        'nome',
+        'name',
         'url',
         'status',
-        'data_inicial',
-        'data_final',
-        'tempo_ate_expirar',
+        'final_date',
     ];
 }

@@ -11,9 +11,11 @@
 </head>
 <body>
     @include('template.nav')
-    <div class="container-fluid">
+    <div class="container">
         <h2 class="text-primary my-4">Inativos Autoconf</h2>
+        <div class="container-fluid">
         @yield('content')
+        </div>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

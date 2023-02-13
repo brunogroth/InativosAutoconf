@@ -8,19 +8,23 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * IMPORTANTE:
+     * Creating date is informed on created_at timestamps.
+     * The Time to Expiration can be calculated with an method that reduces today from final_date,
+     * so that's no necessary to create a column at the table's database.
+     * 
      * @return void
      */
     public function up()
     {
-        Schema::create('site', function (Blueprint $table) {
+        Schema::create('sites_inativos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('url');
             $table->integer('status');
-            $table->date('final_date');
-            $table->date('time_to_expiration');
             $table->timestamps();
+            $table->date('final_date');
+            
         });
     }
 
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('site');
+        Schema::dropIfExists('sites_inativos');
     }
 };

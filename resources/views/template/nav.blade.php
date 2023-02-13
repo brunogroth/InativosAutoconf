@@ -19,6 +19,9 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="https://app.autoconf.com.br">Retornar para o Autoconf</a>
           </div>
+          <li class="nav-item active">
+            <a class="nav-link" href="https://app.autoconf.com.br">Retornar para o Autoconf</a>
+          </li>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
