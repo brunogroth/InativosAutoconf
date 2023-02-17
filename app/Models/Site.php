@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 
 class Site extends Model
 {
@@ -17,4 +18,12 @@ class Site extends Model
         'status',
         'final_date',
     ];
+
+    // public static function getSites(){
+    //     $response = Http::get('http://127.0.0.1:8000/api/list');
+    //     $response->body();
+
+    //     $data = $response->json();
+    //     return $response;
+    // }
 }
