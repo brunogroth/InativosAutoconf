@@ -17,12 +17,12 @@ class SiteController extends Controller
     // }
     public function index(){
 
-        // $sites =  $this->apiService->getSites();        
+        // $sites =  $this->apiService->getSites();
 
-        $response = Http::get('http://127.0.0.1:3001/api/list');
-        $data = json_decode($response->body(), true);
-        dd($data);
-        
+//        $response = Http::get('http://127.0.0.1:3001/api/list');
+//        $data = json_decode($response->body(), true);
+
+
         return view('list');
     }
 
