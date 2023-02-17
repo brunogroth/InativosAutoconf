@@ -13,9 +13,3 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/* VIEWS */
-
-Route::get('/', [FrontSiteController::class, 'index'])->name('list');
-
-Route::get('/create', [FrontSiteController::class, 'create'])->name('create');
