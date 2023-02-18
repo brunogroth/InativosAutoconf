@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [SiteController::class, 'index'])->name('list');
 
 Route::get('/create', [SiteController::class, 'create'])->name('create');
+
+Route::post('/store', [SiteController::class, 'store'])->name('store');

@@ -16,19 +16,22 @@
                 <th scope="col">Nome da loja - #ID</th>
                 <th scope="col">URL do site</th>
                 <th scope="col">Data Inicial</th>
-                <th scope="col">Tempo expiração</th>
-                <th scope="col">Status</th>
                 <th scope="col">Data Final</th>
+                <th scope="col">Status</th>
+                <th scope="col">Tempo restante</th>
             </tr>
             @foreach($sites as $site)
                 <tr>
                     <th scope="row">{{$site->name}}</td>
                     <td>{{$site->url}}</td>
-                    <td>{{date('d/m/Y', strtotime($site->created_at))}}</td>
-                    <td>15d</td>
+                    <td>{{$site->created_at}}</td>
+                    <td class="@if($site->final_date > date("Y/m/d")) expired @else valid @endif">
+                        {{ $site->final_date }}
+                    </td>
                     <td>{{$site->status}}</td>
-                    <td class="@if($site->final_date > date("Y/m/d"))expired @else valid @endif">{{
-                    date('d/m/Y', strtotime($site->final_date))}}</td>
+                    <td class="
+                    @if($site->time_left > 0) text-warning @else text-danger @endif
+                    ">{{$site->time_left}}</td>
                 </tr>
             @endforeach
         </table>
