@@ -19,11 +19,36 @@ class Site extends Model
         'final_date',
     ];
 
-    // public static function getSites(){
-    //     $response = Http::get('http://127.0.0.1:8000/api/list');
-    //     $response->body();
+    public static function getSites(){
+        $response = Http::get('http://127.0.0.1:8000/api/list');
+        $sites = $response->object();
+        $today = date('Y-m-d');
 
-    //     $data = $response->json();
-    //     return $response;
-    // }
+        foreach($sites as $site){
+            $time_left = (strtotime($site->final_date) - strtotime($today)) / 86400;
+            
+            $site->created_at = date('d/m/Y', strtotime($site->created_at));
+            $site->final_date = date('d/m/Y', strtotime($site->final_date));
+            // Tempo Restante
+            switch($site->status){
+                case 0: 
+                    $site->status = "Aguardando Pausa";
+                    break;
+                case 1:
+                    $site->status = "Pausado - Aguardando pagamento";
+                    break;
+                case 2:
+                    $site->status = "Aguardando Desativamento";
+                    break;
+                case 3:
+                    $site->status = "Desativado";
+                    break;
+                case 4:
+                    $site->status = "Recuperado";
+                    break;
+            }
+            $site->time_left = $time_left;
+        }
+        return ($sites);
+    }
 }

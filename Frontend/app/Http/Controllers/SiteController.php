@@ -16,35 +16,7 @@ class SiteController extends Controller
     public function index()
     {
 
-        $response = Http::get('http://127.0.0.1:8000/api/list');
-        $sites = $response->object();
-        $today = date('Y-m-d');
-
-        foreach($sites as $site){
-            $time_left = (strtotime($site->final_date) - strtotime($today)) / 86400;
-            
-            $site->created_at = date('d/m/Y', strtotime($site->created_at));
-            $site->final_date = date('d/m/Y', strtotime($site->final_date));
-            // Tempo Restante
-            switch($site->status){
-                case 0: 
-                    $site->status = "Aguardando Pausa";
-                    break;
-                case 1:
-                    $site->status = "Pausado - Aguardando pagamento";
-                    break;
-                case 2:
-                    $site->status = "Aguardando Desativamento";
-                    break;
-                case 3:
-                    $site->status = "Desativado";
-                    break;
-                case 4:
-                    $site->status = "Recuperado";
-                    break;
-            }
-            $site->time_left = $time_left;
-        }
+        $sites = Site::getSites();
 
         return view('list', compact('sites'));
     }
@@ -57,14 +29,26 @@ class SiteController extends Controller
 
     public function store(Request $request)
     {
-       
-        $input = $request->all();
+      
+        $input = $request->only('name', 'url', 'status', 'final_date');
+        
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'url' => 'required|url',
+            'status' => 'required|numeric|max:4',
+            'final_date' => 'required'
+        ]);
+
         $final_date = $request->input('final_date');
         $initial_date = date('d-m-Y 23:59:59', strtotime($request->input('initial_date')));
-        $final_date = date('d-m-Y 23:59:59', strtotime($request->input('final_date')));
+        $final_date = date('Y-m-d', strtotime($request->input('final_date')));
         $input['final_date'] = $final_date;
-        $input['initial_date'] = $initial_date;
-        dd($input, "initial", $initial_date, "final", $final_date);
-
+        // $input['initial_date'] = $initial_date;
+        
+        $response = Http::withToken($request->_token)->post('http://127.0.0.1:8000/api/create', $input);
+        $r = $response->getBody()->getContents();
+        // dd($r);
+        
+        return back();
     }
 }
