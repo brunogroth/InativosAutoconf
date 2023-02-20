@@ -19,3 +19,7 @@ Route::get('/', [SiteController::class, 'index'])->name('list');
 Route::get('/create', [SiteController::class, 'create'])->name('create');
 
 Route::post('/store', [SiteController::class, 'store'])->name('store');
+
+Route::get('/edit/{id}', [SiteController::class, 'edit'])->name('edit');
+
+Route::put('/update', [SiteController::class, 'update'])->name('update');

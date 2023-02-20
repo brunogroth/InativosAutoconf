@@ -2,6 +2,7 @@
 @section('title', 'Sites Inativos')
 @section('content')
     <div class="container-fluid">
+        <h3>Criar novo site</h3>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

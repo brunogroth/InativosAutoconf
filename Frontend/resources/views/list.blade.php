@@ -19,11 +19,12 @@
                 <th scope="col">Data Final</th>
                 <th scope="col">Status</th>
                 <th scope="col">Tempo restante</th>
+                <th scope="col">Editar</th>
             </tr>
             @foreach($sites as $site)
                 <tr>
                     <th scope="row">{{$site->name}}</td>
-                    <td>{{$site->url}}</td>
+                <td>{{$site->url}}</td>
                     <td>{{$site->created_at}}</td>
                     <td class="@if($site->final_date > date("Y/m/d")) expired @else valid @endif">
                         {{ $site->final_date }}
@@ -32,6 +33,9 @@
                     <td class="
                     @if($site->time_left > 0) text-warning @else text-danger @endif
                     ">{{$site->time_left}}</td>
+                    <td>
+                        <a href="{{route('edit', $site->id)}}" class="btn btn-warning">Editar</a>
+                    </td>
                 </tr>
             @endforeach
         </table>

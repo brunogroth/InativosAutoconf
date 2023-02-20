@@ -9,6 +9,8 @@ Route::get('/list', [ApiSiteController::class, 'index']);
 
 Route::post('/create', [ApiSiteController::class, 'store']);
 
+Route::get('/show/{id}', [ApiSiteController::class, 'show']);
+
 Route::put('/update/{id}', [ApiSiteController::class, 'update']);
 
 Route::delete('/delete/{id}', [ApiSiteController::class, 'destroy']);

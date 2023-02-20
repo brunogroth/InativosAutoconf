@@ -49,6 +49,33 @@ class SiteController extends Controller
         $r = $response->getBody()->getContents();
         // dd($r);
         
-        return back();
+        $sites = Site::getSites();
+        return view('list', compact('sites'));
+    }
+
+    public function edit(int $id)
+    {
+        $site = Http::get('http://127.0.0.1:8000/api/show/' . $id);
+        //dd($site->getBody()->getContents());
+        $site = $site->object();
+        
+        
+        return view('edit', compact('site'));
+    }
+
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'url' => 'required|url',
+            'status' => 'required|numeric|max:4',
+            'final_date' => 'required'
+        ]);
+
+        $id = $request->get('id');
+        $input = $request->only('name', 'url', 'status', 'final_date');
+        
+        $response = Http::put('http://127.0.0.1:8000/api/update/' . $id, $input);
+        dd($response);
     }
 }
