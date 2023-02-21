@@ -6,23 +6,32 @@
         color: red;
     }
     .valid{
-        background: rgba(0, 128, 0, 0.7);
-        color: white;
+        color: green;
+    }
+
+    .table-success{
+        color: rgba(0, 0, 0, 0.65);
     }
 </style>
     <div>
-        <table class="table">
+        <table class="table table-bordered shadow-lg">
             <tr class="thead-primary">
                 <th scope="col">Nome da loja - #ID</th>
                 <th scope="col">URL do site</th>
-                <th scope="col">Data Inicial</th>
-                <th scope="col">Data Final</th>
+                <th scope="col">Criado em</th>
+                <th scope="col">Desativar em</th>
                 <th scope="col">Status</th>
                 <th scope="col">Tempo restante</th>
                 <th scope="col">Editar</th>
+                <th scope="col">Recuperar</th>
+                <th scope="col">Deletar</th>
             </tr>
             @foreach($sites as $site)
-                <tr>
+                <tr class="
+                    @if($site->status == "Recuperado") table-success 
+                    @elseif($site->time_left < 2 && $site->time_left > 0) table-warning
+                    @endif
+                    ">
                     <th scope="row">{{$site->name}}</td>
                 <td>{{$site->url}}</td>
                     <td>{{$site->created_at}}</td>
@@ -30,11 +39,21 @@
                         {{ $site->final_date }}
                     </td>
                     <td>{{$site->status}}</td>
-                    <td class="
-                    @if($site->time_left > 0) text-warning @else text-danger @endif
-                    ">{{$site->time_left}}</td>
+                    <td
+                    {{-- class="@if($site->time_left > 0) text-warning @else text-danger @endif" --}}
+                    >{{$site->time_left > 0 ? $site->time_left . ' dias': '-'}}</td>
                     <td>
                         <a href="{{route('edit', $site->id)}}" class="btn btn-warning">Editar</a>
+                    </td>
+                    <td style="text-align: center">
+                        @if($site->status !== "Recuperado")
+                            <a href="{{route('edit', $site->id)}}" class="btn btn-success">Recuperar</a>
+                        @else 
+                            <span style="font-size: 2rem">✅</span>
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{route('edit', $site->id)}}" class="btn btn-danger"><img src="../icons/trash-solid.svg"</a>
                     </td>
                 </tr>
             @endforeach

@@ -41,7 +41,7 @@ class SiteController extends Controller
 
         $final_date = $request->input('final_date');
         $initial_date = date('d-m-Y 23:59:59', strtotime($request->input('initial_date')));
-        $final_date = date('Y-m-d', strtotime($request->input('final_date')));
+        $final_date = date('Y-d-m', strtotime($request->input('final_date')));
         $input['final_date'] = $final_date;
         // $input['initial_date'] = $initial_date;
         
@@ -49,7 +49,7 @@ class SiteController extends Controller
         $r = $response->getBody()->getContents();
         // dd($r);
         
-        $sites = Site::getSites();
+        $sites = Site::getSites(); 
         return view('list', compact('sites'));
     }
 
@@ -76,6 +76,6 @@ class SiteController extends Controller
         $input = $request->only('name', 'url', 'status', 'final_date');
         
         $response = Http::put('http://127.0.0.1:8000/api/update/' . $id, $input);
-        dd($response);
+        //dd($response);
     }
 }

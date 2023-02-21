@@ -29,7 +29,7 @@ class Site extends Model
             
             $site->created_at = date('d/m/Y', strtotime($site->created_at));
             $site->final_date = date('d/m/Y', strtotime($site->final_date));
-            // Tempo Restante
+            
             switch($site->status){
                 case 0: 
                     $site->status = "Aguardando Pausa";
@@ -49,6 +49,7 @@ class Site extends Model
             }
             $site->time_left = $time_left;
         }
+        //dd($sites);
         return ($sites);
     }
 }
