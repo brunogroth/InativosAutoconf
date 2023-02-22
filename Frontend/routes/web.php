@@ -23,3 +23,6 @@ Route::post('/store', [SiteController::class, 'store'])->name('store');
 Route::get('/edit/{id}', [SiteController::class, 'edit'])->name('edit');
 
 Route::put('/update', [SiteController::class, 'update'])->name('update');
+
+// Quando a saída de um cliente (churn) é recuperado
+Route::patch('/recover', [SiteController::class, 'recover'])->name('recover');

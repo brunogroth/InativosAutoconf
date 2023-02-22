@@ -23,7 +23,7 @@
                 <th scope="col">Status</th>
                 <th scope="col">Tempo restante</th>
                 <th scope="col">Editar</th>
-                <th scope="col">Recuperar</th>
+                <th scope="col">Cliente Recuperado?</th>
                 <th scope="col">Deletar</th>
             </tr>
             @foreach($sites as $site)
@@ -47,13 +47,18 @@
                     </td>
                     <td style="text-align: center">
                         @if($site->status !== "Recuperado")
-                            <a href="{{route('edit', $site->id)}}" class="btn btn-success">Recuperar</a>
+                            <form method="POST" action="recover">
+                                @csrf
+                                @method('patch')
+                                <input type="hidden" name="id" value="{{$site->id}}">
+                                <button class="btn btn-success">Recuperar</button>
+                            </form>
                         @else 
                             <span style="font-size: 2rem">✅</span>
                         @endif
                     </td>
                     <td>
-                        <a href="{{route('edit', $site->id)}}" class="btn btn-danger"><img src="../icons/trash-solid.svg"</a>
+                        <a href="{{route('edit', $site->id)}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
                 </tr>
             @endforeach

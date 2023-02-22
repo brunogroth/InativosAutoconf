@@ -66,5 +66,21 @@ class SiteController extends Controller
         $site = Site::findOrFail($id);
         $site->delete();
 
+        return response(200);
+    }
+
+    /**
+     * Quando o Churn é cancelado (o cliente foi recuperado).
+     * Marca o Site com status 4 - Recuperado.
+     * 
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function recover(int $id)
+    {
+        $site = Site::findOrFail($id);
+        $site->update(['status' => 4]);
+
+        return response(200);
     }
 }

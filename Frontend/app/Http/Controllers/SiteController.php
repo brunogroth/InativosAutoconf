@@ -78,4 +78,15 @@ class SiteController extends Controller
         $response = Http::put('http://127.0.0.1:8000/api/update/' . $id, $input);
         //dd($response);
     }
+
+    // Quando o Churn é cancelado e o cliente é recuperado.
+    public function recover(Request $request){
+        $id = $request->get('id');
+
+        $response = Http::patch('http://127.0.0.1:8000/api/recover/' . $id);
+
+        //dd($response->getBody()->getContents());
+
+        return back();
+    }
 }
