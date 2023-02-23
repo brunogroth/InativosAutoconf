@@ -45,9 +45,11 @@ class SiteController extends Controller
         $input['final_date'] = $final_date;
         // $input['initial_date'] = $initial_date;
         
+        // fazer melhoria pra nao permitir se ja tiver esse site criado e o status nao for 5,  
+        // se for 5 a API já "recria" ele dando put nos valores
         $response = Http::withToken($request->_token)->post('http://127.0.0.1:8000/api/create', $input);
         $r = $response->getBody()->getContents();
-        // dd($r);
+        dd($r);
         
         $sites = Site::getSites(); 
         return view('list', compact('sites'));
@@ -87,6 +89,18 @@ class SiteController extends Controller
 
         //dd($response->getBody()->getContents());
 
-        return back();
+        return back()->with('success', 'Cliente recuperado com sucesso!');
     }
+
+    public function inactivate(Request $request)
+    {
+        $id = $request->get('id');
+
+        $response = Http::patch('http://127.0.0.1:8000/api/inactivate/' . $id);
+
+        //dd($response->getBody()->getContents());
+
+        return back()->with('success', 'Site excluído com sucesso!');
+    }
+    
 }

@@ -26,8 +26,16 @@ class SiteController extends Controller
      */
     public function store(Request $request)
     {
-        Site::create($request->all());
 
+        $existingSite = Site::where('url', $request->input('url'))
+            ->where('status', 5);
+        if ($existingSite) {
+            Site::where('url', $request->input('url'))
+                ->where('status', 5)
+                ->update($request->all());
+        } else {
+            Site::create($request->all());
+        }
         return response('Created', 201);
     }
 
@@ -80,6 +88,14 @@ class SiteController extends Controller
     {
         $site = Site::findOrFail($id);
         $site->update(['status' => 4]);
+
+        return response(200);
+    }
+
+    public function inactivate(int $id)
+    {
+        $site = Site::findOrFail($id);
+        $site->update(['status' => 5]);
 
         return response(200);
     }

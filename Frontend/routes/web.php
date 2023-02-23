@@ -26,3 +26,5 @@ Route::put('/update', [SiteController::class, 'update'])->name('update');
 
 // Quando a saída de um cliente (churn) é recuperado
 Route::patch('/recover', [SiteController::class, 'recover'])->name('recover');
+
+Route::patch('/inactivate', [SiteController::class, 'inactivate'])->name('inactivate');

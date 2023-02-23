@@ -35,7 +35,8 @@
                     <th scope="row">{{$site->name}}</td>
                 <td>{{$site->url}}</td>
                     <td>{{$site->created_at}}</td>
-                    <td class="@if($site->final_date > date("Y/m/d")) expired @else valid @endif">
+                    {{-- condição com bug --}}
+                    <td class="@if($site->final_date < date("Y/m/d")) expired @else valid @endif">
                         {{ $site->final_date }}
                     </td>
                     <td>{{$site->status}}</td>
@@ -58,7 +59,12 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{route('edit', $site->id)}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <form method="POST" action="inactivate">
+                            @csrf
+                            @method('patch')
+                            <input type="hidden" name="id" value="{{$site->id}}">
+                            <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </form>        
                     </td>
                 </tr>
             @endforeach
