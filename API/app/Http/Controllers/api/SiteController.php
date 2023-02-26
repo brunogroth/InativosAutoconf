@@ -29,12 +29,14 @@ class SiteController extends Controller
 
         $existingSite = Site::where('url', $request->input('url'))
             ->where('status', 5);
-        if ($existingSite) {
+        
+        if ($existingSite->count() > 0) {
             Site::where('url', $request->input('url'))
                 ->where('status', 5)
                 ->update($request->all());
         } else {
-            Site::create($request->all());
+            
+            return Site::create($request->all());
         }
         return response('Created', 201);
     }

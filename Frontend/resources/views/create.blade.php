@@ -30,7 +30,8 @@
             <div class="form-group">
                 <label for="formGroupExampleInput2">Tempo de Expiração</label>
                 <select id="amountTime" name="expiration" onchange="updateRemainTime()" class="custom-select">
-                    <option value="15" selected>15 dias</option>
+                    <option selected>Selecione</option>
+                    <option value="15">15 dias</option>
                     <option value="30">30 dias</option>
                     <option value="45">45 dias</option>
                     <option value="60">60 dias</option>
@@ -75,11 +76,10 @@
         var day = finalDate.getDate().toString();
         day = day.length > 1 ? day : '0' + day;
     
-        finalDate = day+'/'+month+'/'+year;
+        finalDate = month+'/'+day+'/'+year;
 
         finalDateInput.value = finalDate;
     }
-    updateRemainTime();
     
     </script>
 @endsection

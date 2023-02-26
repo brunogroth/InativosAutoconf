@@ -31,17 +31,15 @@ class SiteController extends Controller
     {
       
         $input = $request->only('name', 'url', 'status', 'final_date');
-        
         $validated = $request->validate([
             'name' => 'required|max:255',
             'url' => 'required|url',
             'status' => 'required|numeric|max:4',
             'final_date' => 'required'
         ]);
-
-        $final_date = $request->input('final_date');
+        $final_date = strtotime($request->input('final_date'));
         $initial_date = date('d-m-Y 23:59:59', strtotime($request->input('initial_date')));
-        $final_date = date('Y-d-m', strtotime($request->input('final_date')));
+        $final_date = date('Y-m-d', strtotime($request->input('final_date')));
         $input['final_date'] = $final_date;
         // $input['initial_date'] = $initial_date;
         
@@ -50,9 +48,8 @@ class SiteController extends Controller
         $response = Http::withToken($request->_token)->post('http://127.0.0.1:8000/api/create', $input);
         $r = $response->getBody()->getContents();
         dd($r);
-        
         $sites = Site::getSites(); 
-        return view('list', compact('sites'));
+        return ('/');
     }
 
     public function edit(int $id)

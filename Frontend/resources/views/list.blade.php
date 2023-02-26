@@ -27,16 +27,15 @@
                 <th scope="col">Deletar</th>
             </tr>
             @foreach($sites as $site)
-                <tr class="
-                    @if($site->status == "Recuperado") table-success 
-                    @elseif($site->time_left < 2 && $site->time_left > 0) table-warning
-                    @endif
-                    ">
+            {{-- @if($site->id == 5)
+                {{dd($site, date("d/m/Y"));}} 
+            @endif --}}
+                <tr class=" @if($site->status == "Recuperado")table-success @elseif($site->time_left <= 2 && $site->time_left > 0) table-warning @endif ">
                     <th scope="row">{{$site->name}}</td>
                 <td>{{$site->url}}</td>
                     <td>{{$site->created_at}}</td>
                     {{-- condição com bug --}}
-                    <td class="@if($site->final_date < date("Y/m/d")) expired @else valid @endif">
+                    <td class="@if( $site->final_date < date("d/m/Y")) expired @else valid @endif">
                         {{ $site->final_date }}
                     </td>
                     <td>{{$site->status}}</td>
