@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Http;
 class SiteController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-
-        $sites = Site::getSites();
-
-        return view('list', compact('sites'));
+        $page = $request->page;
+        
+        $today = strtotime(date('Y-m-d'));
+        $sites = Site::getSites($page);
+        
+        
+        return view('list', compact('sites', 'today'));
     }
 
 
@@ -48,7 +51,7 @@ class SiteController extends Controller
         $response = Http::withToken($request->_token)->post('http://127.0.0.1:8000/api/create', $input);
         $r = $response->getBody()->getContents();
         dd($r);
-        $sites = Site::getSites(); 
+        $sites = Site::getSites('?page=1'); 
         return ('/');
     }
 
@@ -94,7 +97,6 @@ class SiteController extends Controller
         $id = $request->get('id');
 
         $response = Http::patch('http://127.0.0.1:8000/api/inactivate/' . $id);
-
         //dd($response->getBody()->getContents());
 
         return back()->with('success', 'Site excluído com sucesso!');

@@ -19,12 +19,13 @@ class Site extends Model
         'final_date',
     ];
 
-    public static function getSites(){
-        $response = Http::get('http://127.0.0.1:8000/api/list');
+    public static function getSites($url){
+        $response = Http::get('http://127.0.0.1:8000/api/list?page='.$url);
+        //dd($response->getBody()->getContents());
         $sites = $response->object();
         $today = date('Y-m-d');
 
-        foreach($sites as $site){
+        foreach($sites->data as $site){
             $time_left = (strtotime($site->final_date) - strtotime($today)) / 86400;
             
             $site->created_at = date('d/m/Y', strtotime($site->created_at));
@@ -50,6 +51,7 @@ class Site extends Model
             $site->time_left = $time_left;
         }
         //dd($sites);
+
         return ($sites);
     }
 }

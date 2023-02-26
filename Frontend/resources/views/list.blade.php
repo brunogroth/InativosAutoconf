@@ -1,18 +1,19 @@
 @extends('template.template')
 @section('title', 'Sites Inativos')
 @section('content')
-<style>
-    .expired{
-        color: red;
-    }
-    .valid{
-        color: green;
-    }
+    <style>
+        .expired {
+            color: red;
+        }
 
-    .table-success{
-        color: rgba(0, 0, 0, 0.65);
-    }
-</style>
+        .valid {
+            color: green;
+        }
+
+        .table-success {
+            color: rgba(0, 0, 0, 0.65);
+        }
+    </style>
     <div>
         <table class="table table-bordered shadow-lg">
             <tr class="thead-primary">
@@ -26,34 +27,34 @@
                 <th scope="col">Cliente Recuperado?</th>
                 <th scope="col">Deletar</th>
             </tr>
-            @foreach($sites as $site)
-            {{-- @if($site->id == 5)
+            @foreach ($sites->data as $site)
+                {{-- @if ($site->id == 5)
                 {{dd($site, date("d/m/Y"));}} 
             @endif --}}
-                <tr class=" @if($site->status == "Recuperado")table-success @elseif($site->time_left <= 2 && $site->time_left > 0) table-warning @endif ">
-                    <th scope="row">{{$site->name}}</td>
-                <td>{{$site->url}}</td>
-                    <td>{{$site->created_at}}</td>
+                <tr
+                    class=" @if ($site->status == 'Recuperado') table-success @elseif($site->time_left <= 2 && $site->time_left > 0) table-warning @endif ">
+                    <th scope="row">{{ $site->name }}</td>
+                    <td>{{ $site->url }}</td>
+                    <td>{{ $site->created_at }}</td>
                     {{-- condição com bug --}}
-                    <td class="@if( $site->final_date < date("d/m/Y")) expired @else valid @endif">
+
+                    <td class="{{-- @if ($site->final_date > $today) expired @else valid @endif --}}">
                         {{ $site->final_date }}
                     </td>
-                    <td>{{$site->status}}</td>
-                    <td
-                    {{-- class="@if($site->time_left > 0) text-warning @else text-danger @endif" --}}
-                    >{{$site->time_left > 0 ? $site->time_left . ' dias': '-'}}</td>
+                    <td>{{ $site->status }}</td>
+                    <td {{-- class="@if ($site->time_left > 0) text-warning @else text-danger @endif" --}}>{{ $site->time_left > 0 ? $site->time_left . ' dias' : '-' }}</td>
                     <td>
-                        <a href="{{route('edit', $site->id)}}" class="btn btn-warning">Editar</a>
+                        <a href="{{ route('edit', $site->id) }}" class="btn btn-warning">Editar</a>
                     </td>
                     <td style="text-align: center">
-                        @if($site->status !== "Recuperado")
+                        @if ($site->status !== 'Recuperado')
                             <form method="POST" action="recover">
                                 @csrf
                                 @method('patch')
-                                <input type="hidden" name="id" value="{{$site->id}}">
+                                <input type="hidden" name="id" value="{{ $site->id }}">
                                 <button class="btn btn-success">Recuperar</button>
                             </form>
-                        @else 
+                        @else
                             <span style="font-size: 2rem">✅</span>
                         @endif
                     </td>
@@ -61,13 +62,18 @@
                         <form method="POST" action="inactivate">
                             @csrf
                             @method('patch')
-                            <input type="hidden" name="id" value="{{$site->id}}">
+                            <input type="hidden" name="id" value="{{ $site->id }}">
                             <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                        </form>        
+                        </form>
                     </td>
                 </tr>
             @endforeach
         </table>
+        <div class="text-center">
+            @for ($i = 1; $i <= $sites->last_page; $i++)
+                <a href='{{ route('list', 'page=' . $i) }}'>{{ $i }}</a>
+            @endfor
+        </div>
         {{-- <form class="form-inline my-2 my-lg-0 -right d-flex flex-row-reverse mr-5">
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Criar novo</button>
         </form> --}}
