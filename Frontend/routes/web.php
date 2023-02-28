@@ -28,3 +28,5 @@ Route::put('/update', [SiteController::class, 'update'])->name('update');
 Route::patch('/recover', [SiteController::class, 'recover'])->name('recover');
 
 Route::patch('/inactivate', [SiteController::class, 'inactivate'])->name('inactivate');
+
+Route::get('/filter', [SiteController::class, 'filter'])->name('filter');

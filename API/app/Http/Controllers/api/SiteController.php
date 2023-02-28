@@ -15,7 +15,8 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return Site::paginate(7);
+        
+        return Site::where('status', '<>', 5)->paginate(7);
     }
 
     /**
@@ -100,5 +101,11 @@ class SiteController extends Controller
         $site->update(['status' => 5]);
 
         return response(200);
+    }
+
+    public function filter($filter){
+        return $filter; 
+        
+        $site = Site::where('status', $filter);
     }
 }

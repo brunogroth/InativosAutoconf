@@ -18,3 +18,5 @@ Route::delete('/delete/{id}', [ApiSiteController::class, 'destroy']);
 Route::patch('/recover/{id}', [ApiSiteController::class, 'recover']);
 
 Route::patch('/inactivate/{id}', [ApiSiteController::class, 'inactivate']);
+
+Route::get('/filter', [ApiSiteController::class, 'filter']);

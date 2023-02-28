@@ -19,8 +19,7 @@ class SiteController extends Controller
         
         $today = strtotime(date('Y-m-d'));
         $sites = Site::getSites($page);
-        
-        
+                
         return view('list', compact('sites', 'today'));
     }
 
@@ -40,18 +39,14 @@ class SiteController extends Controller
             'status' => 'required|numeric|max:4',
             'final_date' => 'required'
         ]);
-        $final_date = strtotime($request->input('final_date'));
-        $initial_date = date('d-m-Y 23:59:59', strtotime($request->input('initial_date')));
-        $final_date = date('Y-m-d', strtotime($request->input('final_date')));
-        $input['final_date'] = $final_date;
-        // $input['initial_date'] = $initial_date;
+
+        $input['final_date'] = date('Y-m-d', strtotime($request->input('final_date')));        
         
         // fazer melhoria pra nao permitir se ja tiver esse site criado e o status nao for 5,  
         // se for 5 a API já "recria" ele dando put nos valores
         $response = Http::withToken($request->_token)->post('http://127.0.0.1:8000/api/create', $input);
         $r = $response->getBody()->getContents();
-        dd($r);
-        $sites = Site::getSites('?page=1'); 
+        
         return ('/');
     }
 
@@ -60,7 +55,6 @@ class SiteController extends Controller
         $site = Http::get('http://127.0.0.1:8000/api/show/' . $id);
         //dd($site->getBody()->getContents());
         $site = $site->object();
-        
         
         return view('edit', compact('site'));
     }
@@ -102,4 +96,9 @@ class SiteController extends Controller
         return back()->with('success', 'Site excluído com sucesso!');
     }
     
+    public function filter(Request $request){
+      
+
+        Http::get('http://127.0.0.1/api/filter/'. $request->status);
+    }
 }
