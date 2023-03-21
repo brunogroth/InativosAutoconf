@@ -19,8 +19,12 @@ class Site extends Model
         'final_date',
     ];
 
-    public static function getSites($url){
-        $response = Http::get('http://127.0.0.1:8000/api/list?page='.$url);
+    public static function getSites($page, $filters = null){
+        if (!isset($filters)) {
+        $response = Http::get('http://127.0.0.1:8000/api/list?page='.$page);
+    } else {
+        $response = Http::get('http://127.0.0.1:8000/api/filter?'. $filters);
+    }
         //dd($response->getBody()->getContents());
         $sites = $response->object();
         $today = date('Y-m-d');

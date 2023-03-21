@@ -97,8 +97,11 @@ class SiteController extends Controller
     }
     
     public function filter(Request $request){
-      
 
-        Http::get('http://127.0.0.1/api/filter/'. $request->status);
+        $sites = Site::getSites(1, $request);
+
+        $today = strtotime(date('Y-m-d'));
+                
+        return view('list', compact('sites', 'today'));
     }
 }

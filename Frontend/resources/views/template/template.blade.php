@@ -10,7 +10,7 @@
     
     <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <title>@yield('title') - Inativos Autoconf</title>
-    @vite('resources/sass/app.sass')
+    @vite(['resources/sass/app.scss', 'resources/sass/_variables.scss'])
 </head>
 <body>
     @include('template.nav')

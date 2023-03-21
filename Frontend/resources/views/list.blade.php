@@ -14,12 +14,12 @@
             color: rgba(0, 0, 0, 0.65);
         }
     </style>
-    <div class="row site-filter">
-        <div class="col-3 mb-3">
-            <form method="get" action="{{route('filter')}}">
-                @csrf
-                <label>Filtro Status</label>
-                <select class="form-select d-inline" aria-label="Default select example" name="status">
+    <div class="site-filter">
+        <form class="row gx-3 gy-2 align-items-center mb-3 " method="get" action="{{route('filter')}}">
+            @csrf
+            <label for="status">Filtro Status</label>
+            <div class="col-sm-3">
+                <select class="form-select" aria-label="Default select example" name="status">
                     <option selected>Todos</option>
                     <option value="0">Aguardando Pausa</option>
                     <option value="1">Pausado - Aguardando pagamento</option>
@@ -27,11 +27,16 @@
                     <option value="3">Desativado</option>
                     <option value="4">Recuperado</option>
                 </select>
-                <button class=" d-inline btn btn-primary" type="submit"> <i class="fa fa-search" aria-hidden="true"></i></button>
-            </form>
-
-        </div>
-        <table class="table table-bordered shadow-lg">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit"> <i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+            <div class="col-auto">
+                <a href="{{route('list')}}" class="btn btn-danger" type="submit"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </form>    
+    </div>
+        <table class="table table-bordered table-wrap shadow-lg">
             <tr class="thead-primary">
                 <th scope="col">Nome da loja - #ID</th>
                 <th scope="col">URL do site</th>

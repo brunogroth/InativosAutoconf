@@ -103,9 +103,14 @@ class SiteController extends Controller
         return response(200);
     }
 
-    public function filter($filter){
-        return $filter; 
+    public function filter(Request $request){
         
-        $site = Site::where('status', $filter);
+        
+        if($request->status){
+            $sites = Site::where('status', $request->status);
+        }
+        return $sites->paginate(7);
+        
+        // $site = Site::where('status', $filter);
     }
 }
