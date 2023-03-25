@@ -14,13 +14,13 @@
             color: rgba(0, 0, 0, 0.65);
         }
     </style>
-    <div class="site-filter">
-        <form class="row gx-3 gy-2 align-items-center mb-3 " method="get" action="{{route('filter')}}">
+    <div class="site-filter"> 
+    <form class="row gx-3 gy-2 align-items-center" method="get" action="{{route('filter')}}">
             @csrf
-            <label for="status">Filtro Status</label>
+            <small class="ms-2">Filtro Status</small>
             <div class="col-sm-3">
                 <select class="form-select" aria-label="Default select example" name="status">
-                    <option selected>Todos</option>
+                    <option value= '' selected>Todos</option>
                     <option value="0">Aguardando Pausa</option>
                     <option value="1">Pausado - Aguardando pagamento</option>
                     <option value="2">Aguardando Desativamento</option>
@@ -96,7 +96,7 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            @for ($i = 1; $i <= $sites->last_page; $i++)
+                            {{-- @for ($i = 1; $i <= $sites->last_page; $i++)
                                 <li class="page-item"><a class="page-link"
                                         href='{{ route('list', 'page=' . $i) }}'>{{ $i }}</a></li>
                             @endfor
@@ -104,7 +104,7 @@
                                 <a class="page-link" href='{{ route('list', 'page=' . $i - 1) }}' aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </nav>
                 </div>
